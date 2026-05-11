@@ -151,9 +151,9 @@ const reset2 = () => {
     <div id="social">
       <h2 v-if="hasil">Hasil</h2>
       <h3>{{ total }}</h3>
-      <p>{{ bagi }}</p>
+
       <button v-if="bagi" class="counter" @click="jumlahHasil">
-        Jumlahkan Hasil
+        {{ bagi }}
       </button>
     </div>
   </section>
