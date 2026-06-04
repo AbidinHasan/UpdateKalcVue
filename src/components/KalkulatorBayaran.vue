@@ -17,6 +17,22 @@ const totalCollected = ref(0);
 const sembunyikan = ref(false);
 const tampilkanHasil = ref(false);
 
+const scrollHasil = () => {
+  setTimeout(() => {
+    document.getElementById("social").scrollIntoView({
+      behavior: "smooth",
+    });
+  }, 100); // Delay untuk memastikan hasil sudah dirender
+};
+
+const scrollHapus = () => {
+  setTimeout(() => {
+    document.getElementById("center").scrollIntoView({
+      behavior: "smooth",
+    });
+  }, 100); // Delay untuk memastikan hasil sudah dirender
+};
+
 // Segmen
 const segments = [
   { limit: 30000, price: 5.1, name: "Segmen 1" },
@@ -86,11 +102,12 @@ const hitung = () => {
 
   // Format dan display hasil
   total.value = formatRupiah(totalNilai);
-  bagi2.value = `Total ÷ 2 = ${formatRupiah(totalNilai / 2)}`;
-  bagi3.value = `Total ÷ 3 = ${formatRupiah(totalNilai / 3)}`;
+  bagi2.value = `${formatRupiah(totalNilai / 2)}`;
+  bagi3.value = `${formatRupiah(totalNilai / 3)}`;
   hasil2.value = totalNilai / 2;
   hasil3.value = totalNilai / 3;
   tampilkanHasil.value = true;
+  scrollHasil();
 };
 const jumlahHasil2 = () => {
   if (hasil2.value !== "") {
@@ -112,14 +129,16 @@ const jumlahHasil3 = () => {
   }
   sembunyikan.value = true;
 };
+
 const reset = () => {
   pcs.value = "";
   box.value = "";
   detailList.value = [];
-  total.value = "Clingg🧹 Bersihh !!!";
+  total.value = "";
   bagi2.value = "";
   bagi3.value = "";
   tampilkanHasil.value = false;
+  scrollHapus();
 };
 const reset2 = () => {
   collectedResults.value = [];
@@ -130,7 +149,7 @@ const reset2 = () => {
 
 <template>
   <section id="center">
-    <div>
+    <div id="atas">
       <h1>Kalkulator Bayaran</h1>
     </div>
     <InputPlaceholder
@@ -143,7 +162,6 @@ const reset2 = () => {
       v-model.number="pcs"
       @keyup.enter="hitung"
     />
-
     <button type="button" class="counter" @click="hitung">Hitung</button>
 
     <button type="button" class="counter" @click="reset">Hapus</button>
@@ -151,8 +169,8 @@ const reset2 = () => {
 
   <div class="ticks"></div>
 
-  <section v-if="tampilkanHasil" id="next-steps">
-    <div id="docs">
+  <section id="next-steps">
+    <div v-if="tampilkanHasil" id="docs">
       <h2>Detail Perhitungan</h2>
       <ul id="detail">
         <li v-for="item in detailList" :key="item.name">
@@ -163,12 +181,13 @@ const reset2 = () => {
     </div>
     <div v-if="tampilkanHasil" id="social">
       <h2>Hasil</h2>
-      <h3>{{ total }}</h3>
-      <p>Hasil dibagi 2</p>
+      <h3 style="color: #72cf9f">{{ total }}</h3>
+      <h2>Hasil dibagi 2</h2>
       <button v-if="bagi2" class="counter" @click="jumlahHasil2">
         {{ bagi2 }}</button
       ><br />
-      <p>Hasil dibagi 3</p>
+      <p>atau</p>
+      <h2>Hasil dibagi 3</h2>
       <button v-if="bagi3" class="counter" @click="jumlahHasil3">
         {{ bagi3 }}
       </button>
@@ -176,11 +195,11 @@ const reset2 = () => {
   </section>
 
   <div class="ticks"></div>
-  <section v-if="hasil2" id="center">
+  <section v-if="hasil2" class="koleksi">
     <h2>Total Kumulatif</h2>
     <button v-if="sembunyikan" class="counter" @click="reset2">Reset</button>
-    <p>
-      Total bayaran yang dikumpulkan:
+    <p>Total bayaran yang dikumpulkan:</p>
+    <p style="color: #72cf9f; font-size: 1.5em; font-weight: bold">
       {{ formatRupiah(totalCollected) }}
     </p>
     <ul id="kolesi-hasil">

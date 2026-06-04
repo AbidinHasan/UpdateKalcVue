@@ -25,15 +25,15 @@
 .input:focus,
 input:valid {
   outline: none;
-  border: 1.5px solid #1a73e8;
+  border: 1.5px solid var(--accent);
 }
 
 .input:focus ~ label,
 input:valid ~ label {
   transform: translateY(-50%) scale(0.8);
-  background-color: #212121;
+  background-color: var(--bg);
   padding: 0 0.2em;
-  color: #2196f3;
+  color: var(--accent);
 }
 </style>
 
