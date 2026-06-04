@@ -1,5 +1,6 @@
 <script setup>
 import { ref, watch } from "vue";
+import InputPlaceholder from "./InputPlaceholder.vue";
 
 const ISI = 500;
 
@@ -7,11 +8,14 @@ const pcs = ref("");
 const box = ref("");
 const detailList = ref([]);
 const total = ref("");
-const bagi = ref("");
-const hasil = ref("");
+const bagi3 = ref("");
+const bagi2 = ref("");
+const hasil2 = ref("");
+const hasil3 = ref("");
 const collectedResults = ref([]);
 const totalCollected = ref(0);
 const sembunyikan = ref(false);
+const tampilkanHasil = ref(false);
 
 // Segmen
 const segments = [
@@ -82,12 +86,25 @@ const hitung = () => {
 
   // Format dan display hasil
   total.value = formatRupiah(totalNilai);
-  bagi.value = `Total ÷ 3 = ${formatRupiah(totalNilai / 3)}`;
-  hasil.value = totalNilai / 3;
+  bagi2.value = `Total ÷ 2 = ${formatRupiah(totalNilai / 2)}`;
+  bagi3.value = `Total ÷ 3 = ${formatRupiah(totalNilai / 3)}`;
+  hasil2.value = totalNilai / 2;
+  hasil3.value = totalNilai / 3;
+  tampilkanHasil.value = true;
 };
-const jumlahHasil = () => {
-  if (hasil.value !== "") {
-    collectedResults.value.push(parseFloat(hasil.value));
+const jumlahHasil2 = () => {
+  if (hasil2.value !== "") {
+    collectedResults.value.push(parseFloat(hasil2.value));
+    totalCollected.value = collectedResults.value.reduce(
+      (sum, val) => sum + val,
+      0,
+    );
+  }
+  sembunyikan.value = true;
+};
+const jumlahHasil3 = () => {
+  if (hasil3.value !== "") {
+    collectedResults.value.push(parseFloat(hasil3.value));
     totalCollected.value = collectedResults.value.reduce(
       (sum, val) => sum + val,
       0,
@@ -100,7 +117,9 @@ const reset = () => {
   box.value = "";
   detailList.value = [];
   total.value = "Clingg🧹 Bersihh !!!";
-  bagi.value = "";
+  bagi2.value = "";
+  bagi3.value = "";
+  tampilkanHasil.value = false;
 };
 const reset2 = () => {
   collectedResults.value = [];
@@ -114,20 +133,14 @@ const reset2 = () => {
     <div>
       <h1>Kalkulator Bayaran</h1>
     </div>
-    <input
+    <InputPlaceholder
+      nama="Masukkan Jumlah Box"
       v-model.number="box"
-      class="inputAngka"
-      type="number"
-      placeholder="Masukkan jumlah box"
-      step="0.001"
       @keyup.enter="hitung"
     />
-    <input
+    <InputPlaceholder
+      nama="Masukkan Jumlah Pcs"
       v-model.number="pcs"
-      class="inputAngka"
-      type="number"
-      placeholder="Masukkan jumlah pcs"
-      step="0.001"
       @keyup.enter="hitung"
     />
 
@@ -138,28 +151,32 @@ const reset2 = () => {
 
   <div class="ticks"></div>
 
-  <section id="next-steps">
+  <section v-if="tampilkanHasil" id="next-steps">
     <div id="docs">
-      <h2 v-if="hasil">Detail Perhitungan</h2>
+      <h2>Detail Perhitungan</h2>
       <ul id="detail">
         <li v-for="item in detailList" :key="item.name">
-          {{ item.name }}: {{ formatNumber(item.qty) }} × Rp {{ item.price }} =
+          {{ item.name }}: {{ item.qty }} × Rp {{ item.price }} =
           {{ formatRupiah(item.total) }}
         </li>
       </ul>
     </div>
-    <div id="social">
-      <h2 v-if="hasil">Hasil</h2>
+    <div v-if="tampilkanHasil" id="social">
+      <h2>Hasil</h2>
       <h3>{{ total }}</h3>
-
-      <button v-if="bagi" class="counter" @click="jumlahHasil">
-        {{ bagi }}
+      <p>Hasil dibagi 2</p>
+      <button v-if="bagi2" class="counter" @click="jumlahHasil2">
+        {{ bagi2 }}</button
+      ><br />
+      <p>Hasil dibagi 3</p>
+      <button v-if="bagi3" class="counter" @click="jumlahHasil3">
+        {{ bagi3 }}
       </button>
     </div>
   </section>
 
   <div class="ticks"></div>
-  <section v-if="hasil" id="center">
+  <section v-if="hasil2" id="center">
     <h2>Total Kumulatif</h2>
     <button v-if="sembunyikan" class="counter" @click="reset2">Reset</button>
     <p>
