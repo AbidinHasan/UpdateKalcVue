@@ -13,6 +13,8 @@ const bagi2 = ref("");
 const hasil2 = ref("");
 const hasil3 = ref("");
 const collectedResults = ref([]);
+const boxCollected = ref([]);
+const infoBagi = ref([]);
 const totalCollected = ref(0);
 const sembunyikan = ref(false);
 const tampilkanHasil = ref(false);
@@ -112,6 +114,8 @@ const hitung = () => {
 const jumlahHasil2 = () => {
   if (hasil2.value !== "") {
     collectedResults.value.push(parseFloat(hasil2.value));
+    boxCollected.value.push(parseFloat(box.value));
+    infoBagi.value.push("Hasil dibagi 2");
     totalCollected.value = collectedResults.value.reduce(
       (sum, val) => sum + val,
       0,
@@ -122,6 +126,8 @@ const jumlahHasil2 = () => {
 const jumlahHasil3 = () => {
   if (hasil3.value !== "") {
     collectedResults.value.push(parseFloat(hasil3.value));
+    boxCollected.value.push(parseFloat(box.value));
+    infoBagi.value.push("Hasil dibagi 3");
     totalCollected.value = collectedResults.value.reduce(
       (sum, val) => sum + val,
       0,
@@ -142,8 +148,11 @@ const reset = () => {
 };
 const reset2 = () => {
   collectedResults.value = [];
+  boxCollected.value = [];
+  infoBagi.value = [];
   totalCollected.value = 0;
   sembunyikan.value = false;
+  scrollHapus();
 };
 </script>
 
@@ -182,12 +191,12 @@ const reset2 = () => {
     <div v-if="tampilkanHasil" id="social">
       <h2>Hasil</h2>
       <h3 style="color: #72cf9f">{{ total }}</h3>
-      <h2>Hasil dibagi 2</h2>
+      <h2>Pilih Hasil dibagi 2</h2>
       <button v-if="bagi2" class="counter" @click="jumlahHasil2">
         {{ bagi2 }}</button
       ><br />
       <p>atau</p>
-      <h2>Hasil dibagi 3</h2>
+      <h2>Pilih Hasil dibagi 3</h2>
       <button v-if="bagi3" class="counter" @click="jumlahHasil3">
         {{ bagi3 }}
       </button>
@@ -196,17 +205,21 @@ const reset2 = () => {
 
   <div class="ticks"></div>
   <section v-if="hasil2" class="koleksi">
-    <h2>Total Kumulatif</h2>
-    <button v-if="sembunyikan" class="counter" @click="reset2">Reset</button>
+    <h2>Total Bayaran</h2>
+    <ul id="kolesi-hasil">
+      <li v-for="(result, index) in collectedResults" :key="index">
+        Day {{ index + 1 }}: {{ boxCollected[index] }} box |
+        {{ infoBagi[index] }} | {{ formatRupiah(result) }}
+      </li>
+    </ul>
+    <p>===============================</p>
     <p>Total bayaran yang dikumpulkan:</p>
     <p style="color: #72cf9f; font-size: 1.5em; font-weight: bold">
       {{ formatRupiah(totalCollected) }}
     </p>
-    <ul id="kolesi-hasil">
-      <li v-for="(result, index) in collectedResults" :key="index">
-        Hasil {{ index + 1 }}: {{ formatRupiah(result) }}
-      </li>
-    </ul>
+    <button v-if="sembunyikan" class="counter" @click="reset2">
+      Bersihkan Total Bayaran
+    </button>
   </section>
 
   <div class="ticks"></div>
