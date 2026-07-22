@@ -37,9 +37,9 @@
     --bg: #16171d;
     --border: #2e303a;
     --code-bg: #1f2028;
-    --accent: #c084fc;
+    --accent: #ff5de7;
     --accent-bg: rgba(192, 132, 252, 0.15);
-    --accent-border: rgba(192, 132, 252, 0.5);
+    --accent-border: rgba(255, 42, 244, 0.646);
     --social-bg: rgba(47, 48, 58, 0.5);
     --shadow:
       rgba(0, 0, 0, 0.4) 0 10px 15px -3px, rgba(0, 0, 0, 0.25) 0 4px 6px -2px;
@@ -180,7 +180,6 @@ code {
   max-width: 100%;
   margin: 0 auto;
   text-align: center;
-  border-inline: 1px solid var(--border);
   min-height: 100svh;
   display: flex;
   flex-direction: column;
@@ -251,7 +250,6 @@ code {
 
 #next-steps {
   display: flex;
-  border-top: 1px solid var(--border);
   text-align: left;
 
   & > div {
@@ -271,15 +269,6 @@ code {
   @media (max-width: 1024px) {
     flex-direction: column;
     text-align: center;
-  }
-}
-
-#docs {
-  border-right: 1px solid var(--border);
-
-  @media (max-width: 1024px) {
-    border-right: none;
-    border-bottom: 1px solid var(--border);
   }
 }
 
@@ -340,7 +329,6 @@ code {
 
 #spacer {
   height: 88px;
-  border-top: 1px solid var(--border);
   @media (max-width: 1024px) {
     height: 48px;
   }
@@ -360,10 +348,8 @@ code {
 
   &::before {
     left: 0;
-    border-left-color: var(--border);
   }
   &::after {
     right: 0;
-    border-right-color: var(--border);
   }
 }
