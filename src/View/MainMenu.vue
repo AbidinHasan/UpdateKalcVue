@@ -1,6 +1,7 @@
 <script setup>
-import { ref, watch } from "vue";
-import InputPlaceholder from "./InputPlaceholder.vue";
+import { ref, watch, onMounted } from "vue";
+import InputPlaceholder from "../components/InputPlaceholder.vue";
+import TombolScrollUp from "../components/ScrollUpButton.vue";
 
 const ISI = 500;
 
@@ -18,6 +19,22 @@ const infoBagi = ref([]);
 const totalCollected = ref(0);
 const sembunyikan = ref(false);
 const tampilkanHasil = ref(false);
+const tmblUP = ref(false);
+
+const handleScroll = () => {
+  tmblUP.value = window.scrollY > 200;
+};
+
+const TombolKeAtas = () => {
+  window.scrollTo({
+    top: 0,
+    behavior: "smooth",
+  });
+};
+
+onMounted(() => {
+  window.addEventListener("scroll", handleScroll);
+});
 
 const scrollHasil = () => {
   setTimeout(() => {
@@ -157,6 +174,7 @@ const reset2 = () => {
 </script>
 
 <template>
+  <TombolScrollUp v-if="tmblUP" @click="TombolKeAtas" class="btn-up" />
   <section id="center">
     <div id="atas">
       <h1>Kalkulator Bayaran</h1>

@@ -1,7 +1,9 @@
 <script setup>
-import Kalkulator from "./components/KalkulatorBayaran.vue";
+import Dashboard from "./View/MainMenu.vue";
+import Footer from "./components/Footer.vue";
 </script>
 
 <template>
-  <Kalkulator />
+  <Dashboard />
+  <Footer />
 </template>

@@ -353,3 +353,8 @@ code {
     right: 0;
   }
 }
+
+.btn-up {
+  bottom: 20px;
+  right: 0;
+}
