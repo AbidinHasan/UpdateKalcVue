@@ -198,7 +198,7 @@ const reset2 = () => {
 </script>
 
 <template>
-  <TombolScrollUp v-if="tmblUP" @click="TombolKeAtas" class="btn-up" />
+  <TombolScrollUp v-if="tmblUP" @click="reset" class="btn-up" />
   <section id="center">
     <div id="atas">
       <TulisanJudul />
