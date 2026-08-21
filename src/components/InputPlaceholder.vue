@@ -40,7 +40,7 @@ input:valid ~ label {
 <template>
   <div class="input-group">
     <input
-      required=""
+      required
       type="number"
       step="0.001"
       autocomplete="off"

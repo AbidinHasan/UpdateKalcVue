@@ -2,6 +2,7 @@
 import { ref, watch, onMounted } from "vue";
 import InputPlaceholder from "../components/InputPlaceholder.vue";
 import TombolScrollUp from "../components/ScrollUpButton.vue";
+import TulisanJudul from "../components/Text.vue";
 
 const ISI = 500;
 
@@ -20,16 +21,10 @@ const totalCollected = ref(0);
 const sembunyikan = ref(false);
 const tampilkanHasil = ref(false);
 const tmblUP = ref(false);
+const errorKosong = ref(false);
 
 const handleScroll = () => {
   tmblUP.value = window.scrollY > 200;
-};
-
-const TombolKeAtas = () => {
-  window.scrollTo({
-    top: 0,
-    behavior: "smooth",
-  });
 };
 
 onMounted(() => {
@@ -44,6 +39,20 @@ const scrollHasil = () => {
   }, 100); // Delay untuk memastikan hasil sudah dirender
 };
 
+const scrollTotal = () => {
+  setTimeout(() => {
+    document.getElementById("kolesi-hasil").scrollIntoView({
+      behavior: "smooth",
+    });
+  }, 100); // Delay untuk memastikan hasil sudah dirender
+};
+
+const tutupTooltip = () => {
+  setTimeout(() => {
+    errorKosong.value = false;
+  }, 2000); // Delay untuk menutup tooltip setelah 2 detik
+};
+
 const scrollHapus = () => {
   setTimeout(() => {
     document.getElementById("center").scrollIntoView({
@@ -52,6 +61,12 @@ const scrollHapus = () => {
   }, 100); // Delay untuk memastikan hasil sudah dirender
 };
 
+const TombolKeAtas = () => {
+  window.scrollTo({
+    top: 0,
+    behavior: "smooth",
+  });
+};
 // Segmen
 const segments = [
   { limit: 30000, price: 5.1, name: "Segmen 1" },
@@ -65,6 +80,7 @@ const segments = [
 watch(box, (newBoxValue) => {
   if (newBoxValue !== "") {
     pcs.value = parseFloat((newBoxValue * ISI).toFixed(3));
+    errorKosong.value = false;
   }
 });
 
@@ -72,6 +88,7 @@ watch(box, (newBoxValue) => {
 watch(pcs, (newPcsValue) => {
   if (newPcsValue !== "") {
     box.value = parseFloat((newPcsValue / ISI).toFixed(3));
+    errorKosong.value = false;
   }
 });
 
@@ -94,7 +111,8 @@ const formatNumber = (number) => {
 
 const hitung = () => {
   if (pcs.value === "" || pcs.value === 0) {
-    alert("Masukkan jumlah pcs terlebih dahulu!");
+    errorKosong.value = true;
+    tutupTooltip();
     return;
   }
 
@@ -139,6 +157,7 @@ const jumlahHasil2 = () => {
     );
   }
   sembunyikan.value = true;
+  scrollTotal();
 };
 const jumlahHasil3 = () => {
   if (hasil3.value !== "") {
@@ -151,8 +170,10 @@ const jumlahHasil3 = () => {
     );
   }
   sembunyikan.value = true;
+  scrollTotal();
 };
 
+//Hapus bagian Atas
 const reset = () => {
   pcs.value = "";
   box.value = "";
@@ -163,6 +184,8 @@ const reset = () => {
   tampilkanHasil.value = false;
   scrollHapus();
 };
+
+// Hapus Toal bayaran yg dijumlahkan
 const reset2 = () => {
   collectedResults.value = [];
   boxCollected.value = [];
@@ -170,6 +193,7 @@ const reset2 = () => {
   totalCollected.value = 0;
   sembunyikan.value = false;
   scrollHapus();
+  hasil2.value = false;
 };
 </script>
 
@@ -177,21 +201,26 @@ const reset2 = () => {
   <TombolScrollUp v-if="tmblUP" @click="TombolKeAtas" class="btn-up" />
   <section id="center">
     <div id="atas">
-      <h1>Kalkulator Bayaran</h1>
+      <TulisanJudul />
     </div>
-    <InputPlaceholder
-      nama="Masukkan Jumlah Box"
-      v-model.number="box"
-      @keyup.enter="hitung"
-    />
-    <InputPlaceholder
-      nama="Masukkan Jumlah Pcs"
-      v-model.number="pcs"
-      @keyup.enter="hitung"
-    />
-    <button type="button" class="counter" @click="hitung">Hitung</button>
+    <div class="input-wrapper">
+      <InputPlaceholder
+        nama="Masukkan Jumlah Box"
+        v-model.number="box"
+        @keyup.enter="hitung"
+      />
+    </div>
+    <div class="input-wrapper">
+      <InputPlaceholder
+        nama="Masukkan Jumlah Pcs"
+        v-model.number="pcs"
+        @keyup.enter="hitung"
+      />
+      <span v-if="errorKosong" class="tooltip"> Isi Dulu Dong </span>
+    </div>
+    <button class="counter" @click="hitung">Hitung</button>
 
-    <button type="button" class="counter" @click="reset">Hapus</button>
+    <button class="klikhapus" @click="reset">Hapus</button>
   </section>
 
   <div class="ticks"></div>
@@ -235,7 +264,7 @@ const reset2 = () => {
     <p style="color: #72cf9f; font-size: 1.5em; font-weight: bold">
       {{ formatRupiah(totalCollected) }}
     </p>
-    <button v-if="sembunyikan" class="counter" @click="reset2">
+    <button v-if="sembunyikan" class="klikhapus" @click="reset2">
       Bersihkan Total Bayaran
     </button>
   </section>
