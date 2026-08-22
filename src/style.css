@@ -117,11 +117,12 @@ code {
   padding: 5px 10px;
   border-radius: 15px;
   color: var(--text-h);
-  background: #252525;
+  background: #252135;
   border: 13px solid transparent;
   transition: border-color 0.3s;
   margin-bottom: 5px;
   cursor: pointer;
+  font-family: var(--mono);
 
   &:hover {
     color: var(--accent-border);
@@ -142,6 +143,7 @@ code {
   transition: border-color 0.3s;
   margin-bottom: 5px;
   cursor: pointer;
+  font-family: var(--mono);
 
   &:hover {
     color: var(--text-blck);

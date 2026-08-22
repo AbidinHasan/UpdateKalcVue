@@ -9,7 +9,7 @@
           width="70px"
         />
       </div>
-      <p style="color: #818181; font-size: smaller">©2026 ABDN</p>
+      <p style="color: #818181; font-size: smaller">©2026</p>
     </div>
   </footer>
 </template>
@@ -17,29 +17,9 @@
 <style lang="css" scoped>
 @import url("https://fonts.googleapis.com/css?family=IBM%20Plex%20Sans:500|IBM%20Plex%20Sans:300");
 
-:root {
-  --m: 4rem;
-}
-
 * {
   box-sizing: border-box;
   scroll-behavior: smooth;
-}
-
-body {
-  background-color: black;
-  color: white;
-  font-family: "IBM Plex Sans";
-  font-weight: 300;
-
-  display: flex;
-  flex-direction: column;
-
-  align-items: center;
-  height: 190vh;
-  margin: 0;
-  color: #d5d5d5;
-  font-size: calc(0.3 * var(--m));
 }
 
 h2 {
@@ -88,13 +68,12 @@ footer {
   margin-top: 1vh;
   z-index: 500;
   width: 100%;
-  height: 100vh;
-
+  height: 400px;
   display: flex;
   flex-direction: row;
   justify-content: space-evenly;
   align-items: flex-end;
-  padding: 5rem 2vw;
+  padding: 6rem 2vw;
   position: relative;
 }
 
@@ -143,7 +122,7 @@ footer::before {
   align-items: flex-start;
   justify-content: flex-start;
   padding: calc(0.3 * var(--m)) calc(0.8 * var(--m));
-  width: 28%;
+  width: 100%;
 }
 
 .col3 {

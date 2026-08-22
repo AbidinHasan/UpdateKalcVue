@@ -3,6 +3,7 @@ import { ref, watch, onMounted } from "vue";
 import InputPlaceholder from "../components/InputPlaceholder.vue";
 import TombolScrollUp from "../components/ScrollUpButton.vue";
 import TulisanJudul from "../components/Text.vue";
+import Dompet from "../components/Money.vue";
 
 const ISI = 500;
 
@@ -192,8 +193,6 @@ const reset2 = () => {
   infoBagi.value = [];
   totalCollected.value = 0;
   sembunyikan.value = false;
-  scrollHapus();
-  hasil2.value = false;
 };
 </script>
 
@@ -209,6 +208,7 @@ const reset2 = () => {
         v-model.number="box"
         @keyup.enter="hitung"
       />
+      <span v-if="errorKosong" class="tooltip"> Isi dulu dong </span>
     </div>
     <div class="input-wrapper">
       <InputPlaceholder
@@ -216,7 +216,6 @@ const reset2 = () => {
         v-model.number="pcs"
         @keyup.enter="hitung"
       />
-      <span v-if="errorKosong" class="tooltip"> Isi Dulu Dong </span>
     </div>
     <button class="counter" @click="hitung">Hitung</button>
 
@@ -264,6 +263,7 @@ const reset2 = () => {
     <p style="color: #72cf9f; font-size: 1.5em; font-weight: bold">
       {{ formatRupiah(totalCollected) }}
     </p>
+    <Dompet v-if="sembunyikan" />
     <button v-if="sembunyikan" class="klikhapus" @click="reset2">
       Bersihkan Total Bayaran
     </button>
