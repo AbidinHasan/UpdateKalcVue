@@ -51,7 +51,7 @@ const scrollTotal = () => {
 const tutupTooltip = () => {
   setTimeout(() => {
     errorKosong.value = false;
-  }, 2000); // Delay untuk menutup tooltip setelah 2 detik
+  }, 5000); // Delay untuk menutup tooltip
 };
 
 const scrollHapus = () => {
@@ -128,10 +128,11 @@ const hitung = () => {
       const nilai = qty * segment.price;
       totalNilai += nilai;
       sisa -= qty;
+      const quantityFormatted = qty.toLocaleString("id-ID");
 
       detailList.value.push({
         name: segment.name,
-        qty: qty,
+        qty: quantityFormatted,
         price: segment.price,
         total: nilai,
       });
@@ -197,7 +198,7 @@ const reset2 = () => {
 </script>
 
 <template>
-  <TombolScrollUp v-if="tmblUP" @click="reset" class="btn-up" />
+  <TombolScrollUp v-if="tmblUP" @click="TombolKeAtas" class="btn-up" />
   <section id="center">
     <div id="atas">
       <TulisanJudul />
@@ -226,10 +227,10 @@ const reset2 = () => {
 
   <section id="next-steps">
     <div v-if="tampilkanHasil" id="docs">
-      <h2>Detail Perhitungan</h2>
+      <h2>Rincian Jumlah</h2>
       <ul id="detail">
         <li v-for="item in detailList" :key="item.name">
-          {{ item.name }}: {{ item.qty }} × Rp {{ item.price }} =
+          {{ item.name }}: {{ item.qty }}pcs × Rp {{ item.price }} =
           {{ formatRupiah(item.total) }}
         </li>
       </ul>

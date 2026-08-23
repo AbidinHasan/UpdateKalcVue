@@ -26,7 +26,7 @@
   -webkit-font-smoothing: antialiased;
   -moz-osx-font-smoothing: grayscale;
 
-  @media (max-width: 1024px) {
+  @media (max-width: 600px) {
     font-size: 16px;
   }
 }
@@ -88,7 +88,7 @@ h2 {
   line-height: 118%;
   letter-spacing: -0.24px;
   margin: 0 0 8px;
-  @media (max-width: 1024px) {
+  @media (max-width: 600px) {
     font-size: 20px;
   }
 }
@@ -243,6 +243,10 @@ button:active {
   @media (max-width: 600px) {
     padding: 32px 20px 24px;
     gap: 18px;
+
+    ul {
+      font-size: 11px;
+    }
   }
 
   ul {
@@ -272,7 +276,7 @@ button:active {
   place-items: center;
   flex-grow: 1;
 
-  @media (max-width: 1024px) {
+  @media (max-width: 600px) {
     padding: 32px 20px 24px;
     gap: 18px;
   }
@@ -302,8 +306,15 @@ button:active {
   & > div {
     flex: 1 1 0;
     padding: 32px;
-    @media (max-width: 1024px) {
+    @media (max-width: 600px) {
       padding: 24px 20px;
+
+      ul {
+        font-size: 11px;
+        margin-top: 13px;
+        line-height: 1;
+        text-align: space-between;
+      }
     }
   }
 
@@ -313,7 +324,7 @@ button:active {
     height: 22px;
   }
 
-  @media (max-width: 1024px) {
+  @media (max-width: 600px) {
     flex-direction: column;
     text-align: center;
   }
@@ -357,7 +368,7 @@ button:active {
     }
   }
 
-  @media (max-width: 1024px) {
+  @media (max-width: 600px) {
     margin-top: 20px;
     flex-wrap: wrap;
     justify-content: center;
@@ -376,7 +387,7 @@ button:active {
 
 #spacer {
   height: 88px;
-  @media (max-width: 1024px) {
+  @media (max-width: 600px) {
     height: 48px;
   }
 }
