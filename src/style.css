@@ -53,6 +53,13 @@
 
 body {
   margin: 0;
+
+  background-image: radial-gradient(
+    rgba(142, 159, 183, 0.47) 1px,
+    transparent 1px
+  );
+
+  background-size: 20px 20px;
 }
 
 h1,

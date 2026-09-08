@@ -4,6 +4,7 @@ import InputPlaceholder from "../components/InputPlaceholder.vue";
 import TombolScrollUp from "../components/ScrollUpButton.vue";
 import TulisanJudul from "../components/Text.vue";
 import Dompet from "../components/Money.vue";
+import SelectPilihan from "../components/SelectPilihan.vue";
 
 const ISI = 500;
 
@@ -23,6 +24,10 @@ const sembunyikan = ref(false);
 const tampilkanHasil = ref(false);
 const tmblUP = ref(false);
 const errorKosong = ref(false);
+const Lembur = ref("option1");
+const plusLembur = ref(0);
+const teksInfoLembur = ref(false);
+const ubahwarna = ref("");
 
 const handleScroll = () => {
   tmblUP.value = window.scrollY > 200;
@@ -143,8 +148,8 @@ const hitung = () => {
   total.value = formatRupiah(totalNilai);
   bagi2.value = `${formatRupiah(totalNilai / 2)}`;
   bagi3.value = `${formatRupiah(totalNilai / 3)}`;
-  hasil2.value = totalNilai / 2;
-  hasil3.value = totalNilai / 3;
+  hasil2.value = totalNilai / 2 + plusLembur.value;
+  hasil3.value = totalNilai / 3 + plusLembur.value;
   tampilkanHasil.value = true;
   scrollHasil();
 };
@@ -175,6 +180,21 @@ const jumlahHasil3 = () => {
   scrollTotal();
 };
 
+const HitunganLembur = () => {
+  if (Lembur.value === "option1") {
+    plusLembur.value = 0;
+    teksInfoLembur.value = false;
+    ubahwarna.value = "";
+    hitung();
+  }
+  if (Lembur.value === "option2") {
+    plusLembur.value = 95833;
+    teksInfoLembur.value = true;
+    ubahwarna.value = "red";
+    hitung();
+  }
+};
+
 //Hapus bagian Atas
 const reset = () => {
   pcs.value = "";
@@ -203,13 +223,14 @@ const reset2 = () => {
     <div id="atas">
       <TulisanJudul />
     </div>
+    <SelectPilihan v-model="Lembur" @change="HitunganLembur" />
     <div class="input-wrapper">
       <InputPlaceholder
         nama="Masukkan Jumlah Box"
         v-model.number="box"
         @keyup.enter="hitung"
       />
-      <span v-if="errorKosong" class="tooltip"> Isi dulu dong </span>
+      <span v-if="errorKosong" class="tooltip"> Silahkan Diisi </span>
     </div>
     <div class="input-wrapper">
       <InputPlaceholder
@@ -240,13 +261,20 @@ const reset2 = () => {
       <h3 style="color: #72cf9f">{{ total }}</h3>
       <h2>Pilih Hasil dibagi 2</h2>
       <button v-if="bagi2" class="counter" @click="jumlahHasil2">
-        {{ bagi2 }}</button
-      ><br />
+        {{ bagi2 }}
+      </button>
+      <label v-if="teksInfoLembur" style="font-weight: bold; color: red">
+        + Uang Lembur
+      </label>
+      <br />
       <p>atau</p>
       <h2>Pilih Hasil dibagi 3</h2>
       <button v-if="bagi3" class="counter" @click="jumlahHasil3">
         {{ bagi3 }}
       </button>
+      <label v-if="teksInfoLembur" style="font-weight: bold; color: red">
+        + Uang Lembur
+      </label>
     </div>
   </section>
 
