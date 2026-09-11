@@ -2,12 +2,12 @@
 .wrapper {
   --font-color-dark: #fdfdfd;
   --font-color-light: #343030;
-  --bg-color: #21203b;
+
   --main-color: #fbfbfb;
   position: relative;
-  width: 170px;
+  width: 180px;
   height: 36px;
-  background-color: var(--bg-color);
+  background-color: var(--code-bg);
   border: 2px solid var(--main-color);
   border-radius: 34px;
   display: flex;
@@ -20,7 +20,7 @@
   height: 28px;
   position: relative;
   top: 2px;
-  left: 2px;
+  left: 7px;
 }
 
 .input {
@@ -36,7 +36,7 @@
 .btn {
   width: 100%;
   height: 100%;
-  background-color: var(--bg-color);
+  background-color: var(--code-bg);
   border-radius: 50px;
   display: flex;
   justify-content: center;

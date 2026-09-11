@@ -5,6 +5,7 @@ import TombolScrollUp from "../components/ScrollUpButton.vue";
 import TulisanJudul from "../components/Text.vue";
 import Dompet from "../components/Money.vue";
 import SelectPilihan from "../components/SelectPilihan.vue";
+import IconCopy from "../components/iconCopy.vue";
 
 const ISI = 500;
 
@@ -195,6 +196,14 @@ const HitunganLembur = () => {
   }
 };
 
+const copyNumber = async (value) => {
+  try {
+    await navigator.clipboard.writeText(String(value));
+  } catch (error) {
+    console.error("Gagal menyalin:", error);
+  }
+};
+
 //Hapus bagian Atas
 const reset = () => {
   pcs.value = "";
@@ -249,12 +258,19 @@ const reset2 = () => {
   <section id="next-steps">
     <div v-if="tampilkanHasil" id="docs">
       <h2>Rincian Jumlah</h2>
-      <ul id="detail">
-        <li v-for="item in detailList" :key="item.name">
-          {{ item.name }}: {{ item.qty }}pcs × Rp {{ item.price }} =
-          {{ formatRupiah(item.total) }}
-        </li>
-      </ul>
+      <table id="detail-table">
+        <tbody>
+          <tr v-for="item in detailList" :key="item.name">
+            <td>{{ item.name }}</td>
+            <td>:</td>
+            <td>{{ item.qty }}pcs</td>
+            <td>x</td>
+            <td>{{ item.price }}</td>
+            <td>=</td>
+            <td>{{ formatRupiah(item.total) }}</td>
+          </tr>
+        </tbody>
+      </table>
     </div>
     <div v-if="tampilkanHasil" id="social">
       <h2>Hasil</h2>
@@ -281,17 +297,32 @@ const reset2 = () => {
   <div class="ticks"></div>
   <section v-if="hasil2" class="koleksi">
     <h2>Total Bayaran</h2>
-    <ul id="kolesi-hasil">
-      <li v-for="(result, index) in collectedResults" :key="index">
-        Day {{ index + 1 }}: {{ boxCollected[index] }} box |
-        {{ infoBagi[index] }} | {{ formatRupiah(result) }}
-      </li>
-    </ul>
+    <table id="detail-table">
+      <tbody>
+        <tr v-for="(result, index) in collectedResults" :key="index">
+          <td>Day {{ index + 1 }}</td>
+          <td>:</td>
+          <td>{{ boxCollected[index] }} box</td>
+          <td>|</td>
+          <td>{{ infoBagi[index] }}</td>
+          <td>|</td>
+          <td>{{ formatRupiah(result) }}</td>
+        </tr>
+      </tbody>
+    </table>
+
     <p>===============================</p>
     <p>Total bayaran yang dikumpulkan:</p>
-    <p style="color: #72cf9f; font-size: 1.5em; font-weight: bold">
-      {{ formatRupiah(totalCollected) }}
-    </p>
+    <div class="number-copy">
+      <p style="color: #72cf9f; font-size: 1.5em; font-weight: bold">
+        {{ formatRupiah(totalCollected) }}
+      </p>
+      <IconCopy
+        v-if="totalCollected"
+        @click="copyNumber(formatRupiah(totalCollected))"
+      />
+    </div>
+
     <Dompet v-if="sembunyikan" />
     <button v-if="sembunyikan" class="klikhapus" @click="reset2">
       Bersihkan Total Bayaran
