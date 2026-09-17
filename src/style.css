@@ -33,7 +33,7 @@ body {
   margin: 0;
 
   background-image: radial-gradient(
-    rgba(142, 159, 183, 0.47) 1px,
+    rgba(85, 104, 130, 0.815) 1px,
     transparent 1px
   );
 
@@ -104,6 +104,7 @@ code {
   color: var(--text-h);
   background: #252135;
   border: 13px solid transparent;
+  box-shadow: 3px 3px #fafafa;
   transition: border-color 0.3s;
   margin-bottom: 5px;
   cursor: pointer;
@@ -117,6 +118,10 @@ code {
     outline-offset: 2px;
   }
 }
+.counter:active {
+  box-shadow: none;
+  transform: translate(3px, 3px);
+}
 
 .klikhapus {
   font-size: 16px;
@@ -125,6 +130,7 @@ code {
   color: var(--text-h);
   background: rgba(222, 15, 15, 0.751);
   border: 13px solid transparent;
+  box-shadow: 3px 3px #fafafa;
   transition: border-color 0.3s;
   margin-bottom: 5px;
   cursor: pointer;
@@ -138,16 +144,7 @@ code {
     outline-offset: 2px;
   }
 }
-
-button {
-  text-transform: uppercase;
-  border-radius: 10px;
-  border: 2px solid #fafafa;
-  box-shadow: 3px 3px #fafafa;
-  cursor: pointer;
-}
-
-button:active {
+.klikhapus:active {
   box-shadow: none;
   transform: translate(3px, 3px);
 }

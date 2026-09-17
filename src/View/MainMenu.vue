@@ -5,7 +5,7 @@ import TombolScrollUp from "../components/ScrollUpButton.vue";
 import TulisanJudul from "../components/Text.vue";
 import Dompet from "../components/Money.vue";
 import SelectPilihan from "../components/SelectPilihan.vue";
-import IconCopy from "../components/iconCopy.vue";
+import IconCopy from "../components/iconCopyV2.vue";
 
 const ISI = 500;
 
@@ -40,7 +40,7 @@ onMounted(() => {
 
 const scrollHasil = () => {
   setTimeout(() => {
-    document.getElementById("social").scrollIntoView({
+    document.getElementById("next-steps").scrollIntoView({
       behavior: "smooth",
     });
   }, 100); // Delay untuk memastikan hasil sudah dirender
@@ -223,6 +223,8 @@ const reset2 = () => {
   infoBagi.value = [];
   totalCollected.value = 0;
   sembunyikan.value = false;
+  tampilkanHasil.value = false;
+  scrollHapus();
 };
 </script>
 
@@ -295,7 +297,7 @@ const reset2 = () => {
   </section>
 
   <div class="ticks"></div>
-  <section v-if="hasil2" class="koleksi">
+  <section v-if="hasil2" class="koleksi" id="kolesi-hasil">
     <h2>Total Bayaran</h2>
     <table id="detail-table">
       <tbody>
