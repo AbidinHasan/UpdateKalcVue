@@ -1,3 +1,7 @@
+<script setup>
+import shareBtn from "./shareBtn.vue";
+</script>
+
 <template>
   <footer id="footer">
     <div class="col">
@@ -35,35 +39,6 @@ h3 {
   margin: 0;
 }
 
-.card {
-  height: calc(8 * var(--m));
-  width: calc(12 * var(--m));
-  background: linear-gradient(120deg, #ff8064, #725bdc);
-  color: black;
-  border-radius: calc(0.5 * var(--m));
-
-  display: flex;
-  flex-direction: column;
-  justify-content: center;
-  align-items: center;
-  gap: var(--m);
-
-  position: fixed;
-  margin: calc(2 * var(--m)) calc(5 * var(--m)) calc(5 * var(--m))
-    calc(5 * var(--m));
-}
-
-button {
-  background-color: #000;
-  font-size: calc(0.4 * var(--m));
-  border: none;
-  color: #e5e5e5;
-  font-family: "IBM Plex Sans";
-  font-weight: 400;
-  padding: calc(0.35 * var(--m)) calc(0.8 * var(--m));
-  border-radius: calc(0.3 * var(--m));
-}
-
 footer {
   margin-top: 1vh;
   z-index: 500;
@@ -80,6 +55,7 @@ footer {
 footer::before {
   content: "";
   position: absolute;
+
   inset: 0;
   background: linear-gradient(
     rgba(0, 0, 0, 0) 5%,

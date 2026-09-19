@@ -29,6 +29,21 @@ const Lembur = ref("option1");
 const plusLembur = ref(0);
 const teksInfoLembur = ref(false);
 const ubahwarna = ref("");
+const Visitor = ref(0);
+const GAS_URL =
+  "https://script.google.com/macros/s/AKfycbzJRo4CdIE8o8DNCEIKIXNhNUS6G6QxgK98fLI8WA0UW5rUSvBqg5cqKeEwNQHLBd16/exec";
+
+async function ambilJumlahKunjungan() {
+  try {
+    const res = await fetch(`${GAS_URL}?action=stats`);
+
+    const data = await res.json();
+
+    jumlahKunjungan.value = data.total;
+  } catch (error) {
+    console.error("Gagal mengambil jumlah kunjungan:", error);
+  }
+}
 
 const handleScroll = () => {
   tmblUP.value = window.scrollY > 200;
@@ -36,6 +51,23 @@ const handleScroll = () => {
 
 onMounted(() => {
   window.addEventListener("scroll", handleScroll);
+
+  const page = window.location.pathname;
+  console.log("Counter");
+  const userAgent = navigator.userAgent;
+
+  fetch(
+    `${GAS_URL}?action=visit` +
+      `&page=${encodeURIComponent(page)}` +
+      `&userAgent=${encodeURIComponent(userAgent)}`,
+  )
+    .then((res) => res.json())
+    .then((data) => {
+      console.log("Sukses" + data);
+    })
+    .catch((err) => {
+      console.error("Gagal mencatat:", err);
+    });
 });
 
 const scrollHasil = () => {
@@ -225,6 +257,24 @@ const reset2 = () => {
   sembunyikan.value = false;
   tampilkanHasil.value = false;
   scrollHapus();
+};
+
+const sharePage = async () => {
+  if (navigator.share) {
+    try {
+      await navigator.share({
+        title: "Kalkulator Bayaran",
+        text: "Please enjoy",
+        url: window.location.href,
+      });
+    } catch (error) {
+      console.log("Share dibatalkan");
+    }
+  } else {
+    // Jika browser tidak mendukung navigator.share
+    await navigator.clipboard.writeText(window.location.href);
+    alert("Link berhasil disalin");
+  }
 };
 </script>
 
