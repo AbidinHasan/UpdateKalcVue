@@ -1,14 +1,10 @@
-<script setup>
-import shareBtn from "./shareBtn.vue";
-</script>
-
 <template>
   <footer id="footer">
     <div class="col">
       <p>Made by</p>
       <div class="social">
         <img
-          src="https://ik.imagekit.io/galleryBiden/foto/LOGO%20ABDN%20white.png?updatedAt=1761290886771"
+          src="https://storage-ipal.bidin.workers.dev/document/LOGO_ABDN_white.png"
           alt="ABDN"
           width="70px"
         />
