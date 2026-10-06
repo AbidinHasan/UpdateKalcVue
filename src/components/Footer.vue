@@ -4,7 +4,7 @@
       <p>Made by</p>
       <div class="social">
         <img
-          src="https://storage-ipal.bidin.workers.dev/document/LOGO_ABDN_white.png"
+          src="https://storage.bidin.din/document/LOGO_ABDN_white.png"
           alt="ABDN"
           width="70px"
         />
