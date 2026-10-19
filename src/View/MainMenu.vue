@@ -324,6 +324,8 @@ const sharePage = async () => {
         </tbody>
       </table>
     </div>
+  </section>
+  <section id="center">
     <div v-if="tampilkanHasil" id="social">
       <h2>Hasil</h2>
       <h3 style="color: #72cf9f">{{ total }}</h3>

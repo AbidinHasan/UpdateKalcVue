@@ -3,11 +3,7 @@
     <div class="col">
       <p>Made by</p>
       <div class="social">
-        <img
-          src="https://storage.bidin.din/document/LOGO_ABDN_white.png"
-          alt="ABDN"
-          width="70px"
-        />
+        <img src="../assets/LOGO ABDN white.png" alt="ABDN" width="70px" />
       </div>
       <p style="color: #818181; font-size: smaller">©2026</p>
     </div>

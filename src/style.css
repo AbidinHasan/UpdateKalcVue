@@ -282,6 +282,8 @@ code {
 }
 
 #next-steps {
+  flex-direction: column;
+  text-align: center;
   display: flex;
   text-align: left;
   margin: auto;
