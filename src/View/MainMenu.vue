@@ -53,7 +53,7 @@ onMounted(() => {
   window.addEventListener("scroll", handleScroll);
 
   const page = window.location.pathname;
-  console.log("Counter");
+
   const userAgent = navigator.userAgent;
 
   fetch(
@@ -62,9 +62,7 @@ onMounted(() => {
       `&userAgent=${encodeURIComponent(userAgent)}`,
   )
     .then((res) => res.json())
-    .then((data) => {
-      console.log("Sukses" + data);
-    })
+
     .catch((err) => {
       console.error("Gagal mencatat:", err);
     });
